@@ -5,6 +5,7 @@ import com.example.sankalp.ecommerce.order_service.services.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,12 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+
+
+    @GetMapping("/helloOrders")
+    public ResponseEntity<String> helloOrders() {
+        return ResponseEntity.ok("Hi from OrderService");
+    }
 
     @GetMapping
     public ResponseEntity<List<OrderRequestDto>> getAllOrders(HttpServletRequest httpServletRequest) {

@@ -1,5 +1,6 @@
 package com.example.sankalp.ecommerce.inventory_service.controller;
 
+import com.example.sankalp.ecommerce.inventory_service.clients.OrdersFeignClient;
 import com.example.sankalp.ecommerce.inventory_service.dto.ProductDto;
 import com.example.sankalp.ecommerce.inventory_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,11 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final OrdersFeignClient ordersFeignClient;
 
-    @GetMapping("/orders")
-    public ResponseEntity<String> getHealthCheck(){
-        return ResponseEntity.ok("hi from inventory");
+    @GetMapping("/fetchOrders")
+    public ResponseEntity<String> fetchFromOrderService(){
+        return ResponseEntity.ok(ordersFeignClient.helloOrders());
     }
 
 
