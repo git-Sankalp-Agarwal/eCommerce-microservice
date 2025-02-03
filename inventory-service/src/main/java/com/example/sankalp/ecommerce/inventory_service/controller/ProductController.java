@@ -1,7 +1,5 @@
 package com.example.sankalp.ecommerce.inventory_service.controller;
 
-
-
 import com.example.sankalp.ecommerce.inventory_service.dto.ProductDto;
 import com.example.sankalp.ecommerce.inventory_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +16,12 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+
+    @GetMapping("/orders")
+    public ResponseEntity<String> getHealthCheck(){
+        return ResponseEntity.ok("hi from inventory");
+    }
+
 
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllInventory() {
