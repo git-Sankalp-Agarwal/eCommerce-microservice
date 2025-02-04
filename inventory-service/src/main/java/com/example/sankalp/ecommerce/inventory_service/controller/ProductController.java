@@ -1,6 +1,7 @@
 package com.example.sankalp.ecommerce.inventory_service.controller;
 
 import com.example.sankalp.ecommerce.inventory_service.clients.OrdersFeignClient;
+import com.example.sankalp.ecommerce.inventory_service.dto.OrderRequestDto;
 import com.example.sankalp.ecommerce.inventory_service.dto.ProductDto;
 import com.example.sankalp.ecommerce.inventory_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,14 @@ public class ProductController {
         return ResponseEntity.ok(inventory);
     }
 
+    @PutMapping("/reduceStocks")
+    public Double reduceStocks(@RequestBody OrderRequestDto orderRequestDto){
+        return productService.reduceItemsStock(orderRequestDto);
+    }
 
+    @PutMapping("/increaseStocks")
+    public void increaseStocks(@RequestBody OrderRequestDto orderRequestDto){
+        productService.increaseItemStocks(orderRequestDto);
+    }
 
 }

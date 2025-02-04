@@ -3,12 +3,14 @@ package com.example.sankalp.ecommerce.order_service.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@ToString
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
