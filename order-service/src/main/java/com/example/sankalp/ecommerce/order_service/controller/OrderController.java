@@ -34,7 +34,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderRequestDto> getOrderById(@PathVariable UUID id) {
+    public ResponseEntity<OrderRequestDto> getOrderById(@PathVariable Long id) {
         log.info("Fetching order with ID: {} via controller", id);
         OrderRequestDto order = orderService.getOrderById(id);
         return ResponseEntity.ok(order);  // Returns 200 OK with the order
@@ -47,7 +47,7 @@ public class OrderController {
     }
 
     @PostMapping("/cancelOrder/{orderId}")
-    public ResponseEntity<String> createOrder(@PathVariable UUID orderId){
+    public ResponseEntity<String> createOrder(@PathVariable Long orderId){
         return ResponseEntity.ok(orderService.cancelOrder(orderId));
 
     }

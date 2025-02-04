@@ -20,6 +20,12 @@ spring:
             - Path=/api/v1/inventory/**
           filters:
             - StripPrefix=2
+        - id: shipping-service
+          uri: lb://SHIPPING-SERVICE
+          predicates:
+            - Path=/api/v1/shipments/**
+          filters:
+            - StripPrefix=2
 
 #Eureka config
 eureka:

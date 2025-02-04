@@ -1,6 +1,7 @@
 package com.example.sankalp.ecommerce.order_service.services;
 
 import com.example.sankalp.ecommerce.order_service.clients.InventoryFeintClient;
+import com.example.sankalp.ecommerce.order_service.clients.ShipmentFeignClient;
 import com.example.sankalp.ecommerce.order_service.dto.OrderRequestDto;
 import com.example.sankalp.ecommerce.order_service.entity.OrderItem;
 import com.example.sankalp.ecommerce.order_service.entity.OrderStatus;
@@ -23,7 +24,9 @@ public class OrderService {
     private final OrdersRepository orderRepository;
     private final ModelMapper modelMapper;
     private final InventoryFeintClient inventoryFeintClient;
-    final Double DELIVERY_CHARGES = 5.0;
+    private final ShipmentFeignClient shipmentFeignClient;
+
+    final Double DELIVERY_CHARGES  = 5.0;
 
 
     public List<OrderRequestDto> getAllOrders() {
@@ -56,6 +59,7 @@ public class OrderService {
         order.setOrderStatus(OrderStatus.CONFIRMED);
 
         Orders savedOrder = orderRepository.save(order);
+        shipmentFeignClient.createShipment(savedOrder.getId());
         log.info(savedOrder.toString());
         return modelMapper.map(order, OrderRequestDto.class);
 
