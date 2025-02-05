@@ -38,29 +38,31 @@ public class ShippingService {
 
         Shipment savedShipment = shipmentRepository.save(shipment);
 
-
     }
 
     @Transactional
-    public String updateShipmentDetails(Long shipmentId, @RequestBody ShipmentStatus shipmentStatus ){
+    public String updateShipmentDetails(ShipmentDto shipmentDto){
+
+        Long shipmentId = shipmentDto.getId();
+        ShipmentStatus updateShipmentStatus = shipmentDto.getShipmentStatus();
 
         Shipment shipment = shipmentRepository.findById(shipmentId).orElseThrow();
-        switch (shipmentStatus) {
+        switch (updateShipmentStatus) {
             case SHIPPED -> {
-                shipment.setShipmentStatus(shipmentStatus);
+                shipment.setShipmentStatus(updateShipmentStatus);
                 shipment.setShippedDate(LocalDateTime.now());
             }
             case OUT_FOR_DELIVERY -> {
-                shipment.setShipmentStatus(shipmentStatus);
+                shipment.setShipmentStatus(updateShipmentStatus);
                 shipment.setOutForDeliveryDate(LocalDateTime.now());
             }
             case DELIVERED -> {
-                shipment.setShipmentStatus(shipmentStatus);
+                shipment.setShipmentStatus(updateShipmentStatus);
                 shipment.setActualDeliveryDate(LocalDateTime.now());
 
             }
             case CANCELLED -> {
-                shipment.setShipmentStatus(shipmentStatus);
+                shipment.setShipmentStatus(updateShipmentStatus);
             }
         }
         Shipment savedShipment = shipmentRepository.save(shipment);

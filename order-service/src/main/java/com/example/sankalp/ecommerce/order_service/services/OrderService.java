@@ -6,9 +6,11 @@ import com.example.sankalp.ecommerce.order_service.dto.OrderRequestDto;
 import com.example.sankalp.ecommerce.order_service.entity.OrderItem;
 import com.example.sankalp.ecommerce.order_service.entity.OrderStatus;
 import com.example.sankalp.ecommerce.order_service.entity.Orders;
+import com.example.sankalp.ecommerce.order_service.entity.ShipmentDetails;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import com.example.sankalp.ecommerce.order_service.dto.ShipmentDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import com.example.sankalp.ecommerce.order_service.repository.OrdersRepository;
@@ -88,5 +90,22 @@ public class OrderService {
     }
 
 
+    public String updateShipmentDetails(ShipmentDto shipmentDto) {
 
+        Long orderId = shipmentDto.getOrderId();
+
+        Orders order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found with Id"+  orderId));
+
+        ShipmentDetails shipmentDetails = modelMapper.map(shipmentDto, ShipmentDetails.class);
+
+        String updatedOrderStatus = String.valueOf(shipmentDto.getShipmentStatus());
+
+        order.setOrderStatus(OrderStatus.valueOf(updatedOrderStatus));
+
+        order.setShipmentDetails(shipmentDetails);
+
+        orderRepository.save(order);
+
+        return "Order Updated";
+    }
 }

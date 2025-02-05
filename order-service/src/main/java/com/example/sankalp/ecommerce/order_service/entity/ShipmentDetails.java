@@ -1,28 +1,31 @@
-package com.example.sankalp.shipping_service.dto;
+package com.example.sankalp.ecommerce.order_service.entity;
 
-import com.example.sankalp.shipping_service.entities.enums.Carrier;
-import com.example.sankalp.shipping_service.entities.enums.ShipmentStatus;
-import com.example.sankalp.shipping_service.entities.enums.ShippingMethod;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShipmentDto {
+@Builder
+public class ShipmentDetails {
 
+    @Id
     private Long id;
 
-    private Long orderId;
-
+    @Enumerated(value = EnumType.STRING)
     private Carrier carrier;
 
+    @Column(unique = true)
     private String trackingNumber;
 
-    private ShipmentStatus shipmentStatus;
-
+    @Enumerated(value = EnumType.STRING)
     private ShippingMethod shippingMethod;
 
     private LocalDateTime shippedDate;
@@ -32,4 +35,5 @@ public class ShipmentDto {
     private LocalDateTime estimatedDeliveryDate;
 
     private LocalDateTime actualDeliveryDate;
+
 }

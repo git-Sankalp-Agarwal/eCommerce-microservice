@@ -1,5 +1,6 @@
 package com.example.sankalp.ecommerce.order_service.dto;
 
+import com.example.sankalp.ecommerce.order_service.entity.ShipmentDetails;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,8 @@ public class OrderRequestDto {
     private List<OrderRequestItemDto> items;
     private LocalDateTime orderDate;
     private BigDecimal totalPrice;
+
+    private ShipmentDetailsDto shipmentDetails;
+
 }
 

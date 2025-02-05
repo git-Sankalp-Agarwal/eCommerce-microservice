@@ -25,7 +25,7 @@ public class Shipment {
     @Column(unique = true)
     private Long orderId;
 
-    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated(value = EnumType.STRING)
     private Carrier carrier;
 
     @Column(unique = true)

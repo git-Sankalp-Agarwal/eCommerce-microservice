@@ -2,6 +2,7 @@ package com.example.sankalp.ecommerce.order_service.controller;
 
 import com.example.sankalp.ecommerce.order_service.clients.InventoryFeintClient;
 import com.example.sankalp.ecommerce.order_service.dto.OrderRequestDto;
+import com.example.sankalp.ecommerce.order_service.dto.ShipmentDto;
 import com.example.sankalp.ecommerce.order_service.services.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class OrderController {
         return ResponseEntity.ok(orders);  // Returns 200 OK with the list of orders
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getMyOrderDetails/{id}")
     public ResponseEntity<OrderRequestDto> getOrderById(@PathVariable Long id) {
         log.info("Fetching order with ID: {} via controller", id);
         OrderRequestDto order = orderService.getOrderById(id);
@@ -50,6 +51,11 @@ public class OrderController {
     public ResponseEntity<String> createOrder(@PathVariable Long orderId){
         return ResponseEntity.ok(orderService.cancelOrder(orderId));
 
+    }
+
+    @PutMapping("/updateOrder")
+    String updateOrderShipmentDetails(@RequestBody ShipmentDto shipmentDto){
+        return orderService.updateShipmentDetails(shipmentDto);
     }
 
 }
