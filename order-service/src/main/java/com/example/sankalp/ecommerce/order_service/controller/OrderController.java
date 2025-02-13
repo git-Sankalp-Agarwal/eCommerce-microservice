@@ -23,8 +23,10 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/helloOrders")
-    public ResponseEntity<String> helloOrders() {
-        return ResponseEntity.ok("Hi from OrderService");
+    public ResponseEntity<String> helloOrders(@RequestHeader("X-User-Id") Long userId) {
+       // Long userId = 232L;
+        log.info("User id value::: {}", userId);
+        return ResponseEntity.ok("Hi from OrderService with ID::: "+ userId);
     }
 
     @GetMapping
